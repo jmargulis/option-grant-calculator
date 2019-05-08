@@ -3,6 +3,7 @@ export const ADD_GRANT = 'ADD_GRANT';
 export const UPDATE_GRANT = 'UPDATE_GRANT';
 export const REMOVE_GRANT = 'REMOVE_GRANT';
 
+export const FETCH_EXIT = 'FETCH_EXIT';
 export const UPDATE_EXIT = 'UPDATE_EXIT';
 
 export const FETCH_UI = 'FETCH_UI';
