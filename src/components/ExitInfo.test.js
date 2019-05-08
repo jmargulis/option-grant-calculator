@@ -55,12 +55,12 @@ describe('<ExitInfo/>', () => {
 
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<Provider store={store}><ExitInfo exit={{exitValue:'', exitDate: new Date()}}/></Provider>, div);
+    ReactDOM.render(<Provider store={store}><ExitInfo exit={{exitValue: '', exitDate: new Date()}}/></Provider>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 
   it('receives properties correctly', () => {
-    const wrapper = mount(shallow(<Provider store={store1}><ExitInfo exit={{exitValue:'1000', exitDate: new Date()}}/></Provider>).get(0));
+    const wrapper = mount(shallow(<Provider store={store1}><ExitInfo exit={{exitValue:'1000', exitDate:new Date()}}/></Provider>).get(0));
     expect(wrapper.find('.strike-price')).toHaveHTML('<input class="form-control strike-price" type="text" value="1000">');
 
     const wrapper2 = mount(shallow(<Provider store={store1}><ExitInfo exit={{exitValue:'10000', exitDate: new Date()}}/></Provider>).get(0));

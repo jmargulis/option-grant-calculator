@@ -110,7 +110,7 @@ class GrantInfo extends React.Component {
               <div className="d-block">
                 <DatePicker
                   onChange={this.onChangeStrikeDate.bind(this)}
-                  value={this.state.strikeDate}
+                  value={new Date(this.state.strikeDate)}
                 />
               </div>
             </div>

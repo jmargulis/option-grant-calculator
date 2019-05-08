@@ -34,8 +34,6 @@ export const isGrantsValid = (grants) => {
     return false;
   }
 
-  console.log(typeof grants);
-  console.log(grants);
   let result = true;
   grants.map(grant => {
     result = result && isGrantValid(grant);

@@ -8,7 +8,7 @@ export default function (state = initialGrants, action) {
   switch (action.type) {
 
     case FETCH_GRANTS:
-      return action.payload;
+      return state;
 
     case UPDATE_GRANT:
       newState[action.payload.id].sharesGranted = action.payload.sharesGranted;

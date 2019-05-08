@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Grants from './components/Grants';
 import Actions from './components/Actions';
-import ExitInfo from './components/ExitInfo';
+import Exit from './components/Exit';
 
 class App extends React.Component {
 
@@ -14,7 +14,7 @@ class App extends React.Component {
         </header>
         <Grants/>
         <Actions/>
-        <ExitInfo exit={{exitValue:'', exitDate: new Date()}}/>
+        <Exit/>
       </div>
     );
   }

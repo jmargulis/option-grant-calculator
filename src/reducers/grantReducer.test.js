@@ -4,14 +4,26 @@ import defaultGrant from "../utils/defaultGrant";
 
 describe('Redux grantReducer', () => {
 
-  it('fetches grants', () => {
+  it('fetches blank grants', () => {
     const initialFetch = [];
     const actionFetch = {
       type: FETCH_GRANTS,
-      payload: [defaultGrant()]
+      payload: null
     };
 
-    let resultFetch = actionFetch.payload;
+    let resultFetch = [];
+    expect(grantReducer(initialFetch, actionFetch)).toEqual(resultFetch);
+  });
+
+  it('fetches default grants', () => {
+    const myDefault = defaultGrant();
+    const initialFetch = [myDefault];
+    const actionFetch = {
+      type: FETCH_GRANTS,
+      payload: null
+    };
+
+    let resultFetch = [myDefault];
     expect(grantReducer(initialFetch, actionFetch)).toEqual(resultFetch);
   });
 

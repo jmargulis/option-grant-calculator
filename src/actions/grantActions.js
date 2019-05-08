@@ -2,10 +2,9 @@ import { FETCH_GRANTS, ADD_GRANT, UPDATE_GRANT, REMOVE_GRANT } from './types';
 import defaultGrant from '../utils/defaultGrant';
 
 export const fetchGrants = () => dispatch => {
-  // TODO: look at cookies for existing grants stored
   dispatch({
     type: FETCH_GRANTS,
-    payload: [defaultGrant()]
+    payload: null
   })
 }
 

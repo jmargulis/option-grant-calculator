@@ -28,7 +28,7 @@ class Actions extends React.Component {
       this.props.toggleExit();
     }
     else {
-      alert('Please complete your grants.')
+      alert('Please complete your grant(s).')
     }
   }
 

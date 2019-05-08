@@ -6,7 +6,6 @@ import {isNonNegativeNumber, printNumberWithCommas} from "../utils/utils";
 import { updateExit } from '../actions/exitActions';
 import { fetchUI } from '../actions/uiActions';
 import { fetchGrants } from '../actions/grantActions';
-import store from '../store';
 
 class ExitInfo extends React.Component {
 
@@ -24,18 +23,19 @@ class ExitInfo extends React.Component {
   }
 
   onChangeExitDate(value) {
-    this.setState({exitDate: value});
-    this.updateData();
+    this.setState({exitDate: value},
+      () => this.updateExit());
   }
 
   handleExitValue(e) {
     e.preventDefault();
     if (isNonNegativeNumber(e.target.value) || e.target.value === '') {
-      this.setState({exitValue: e.target.value});
+      this.setState({exitValue: e.target.value},
+        () => this.updateExit());
     }
   }
 
-  updateData() {
+  updateExit() {
     this.props.updateExit({
       exitDate: this.state.exitDate,
       exitValue: this.state.exitValue
@@ -53,13 +53,17 @@ class ExitInfo extends React.Component {
       grants.map(grant => {
         percentage += 100 * grant.sharesGranted / grant.totalShares;
         initialValue += grant.sharesGranted * grant.strikePrice;
-        minDate = minDate < grant.strikeDate ? minDate : grant.strikeDate;
+        minDate = (minDate < grant.strikeDate) ? minDate : grant.strikeDate;
       });
     }
     let myValue = this.state.exitValue * percentage / 100 - initialValue;
 
     // TODO: use more sophisticated number of years
-    let numYears = Math.max(this.state.exitDate.getFullYear() - minDate.getFullYear(), 1);
+    let numYears = 1;
+    if((minDate && typeof minDate.getFullYear === 'function') &&
+      (this.state.exitDate && typeof this.state.exitDate.getFullYear === 'function')) {
+      numYears = Math.max(this.state.exitDate.getFullYear() - minDate.getFullYear(), numYears);
+    }
     let annualizedValue = myValue / numYears;
 
     return (
@@ -106,7 +110,7 @@ class ExitInfo extends React.Component {
                   </div>
                   <input className="form-control strike-price" type="text"
                          onChange={this.handleExitValue.bind(this)}
-                         onBlur={this.updateData.bind(this)}
+                         onBlur={this.updateExit.bind(this)}
                          value={this.state.exitValue}
                   />
                 </div>
@@ -127,8 +131,6 @@ ExitInfo.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  exitDate: state.exitDate,
-  exitValue: state.exitValue,
   ui: state.ui,
   grants: state.grants
 });
