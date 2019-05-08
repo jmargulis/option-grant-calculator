@@ -5,7 +5,8 @@ import rootReducer from './reducers';
 
 const initialState = {
   grants: [],
-  exit: {}
+  exit: {},
+  ui: false
 };
 
 const middleware = [thunk];
