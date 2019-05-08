@@ -1,6 +1,4 @@
-import { isPositiveInteger } from './utils';
-import { isNonNegativeNumber } from './utils';
-import { printNumberWithCommas } from './utils';
+import { isPositiveInteger, isNonNegativeNumber, printNumberWithCommas } from './utils';
 
 describe('utils', () => {
 

@@ -1,35 +1,32 @@
-import {FETCH_GRANTS, ADD_GRANT, UPDATE_GRANTS, REMOVE_GRANT} from '../actions/types';
+import {FETCH_GRANTS, ADD_GRANT, UPDATE_GRANT, REMOVE_GRANT} from '../actions/types';
 
-const initialState = {};
+const initialGrants = [];
 
-export default function (state = initialState, action) {
+export default function (state = initialGrants, action) {
+  let newState = state.slice(0);
+
   switch (action.type) {
 
     case FETCH_GRANTS:
-      return Object.assign({}, state, {
-        grants: action.payload
-      });
+      return action.payload;
 
-    case UPDATE_GRANTS:
-      return {
-        ...state
-      };
+    case UPDATE_GRANT:
+      newState[action.payload.id].sharesGranted = action.payload.sharesGranted;
+      newState[action.payload.id].totalShares = action.payload.totalShares;
+      newState[action.payload.id].strikePrice = action.payload.strikePrice;
+      newState[action.payload.id].strikeDate = action.payload.strikeDate;
+      return newState;
 
     case ADD_GRANT:
-      return {
-        ...state,
-        ...state.grants.push(action.payload)
-      };
+      newState.push(action.payload);
+      return newState;
 
     case REMOVE_GRANT:
-      let newGrants = state.grants;
-      newGrants.splice(action.payload, 1);
-      return {
-        ...state,
-        grants: newGrants
-      };
+      newState.splice(action.payload, 1);
+      return newState;
+
+    default:
+      return state;
 
   }
-
-  return state;
 }

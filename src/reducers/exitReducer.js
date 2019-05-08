@@ -6,10 +6,10 @@ export default function (state = initialState, action) {
   switch (action.type) {
 
     case UPDATE_EXIT:
-      return Object.assign({}, state, {
-        exit: action.payload
-      });
-  }
+      return action.payload;
 
-  return state;
+    default:
+      return state;
+
+  }
 }

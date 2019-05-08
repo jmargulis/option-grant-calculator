@@ -1,11 +1,21 @@
-import { FETCH_GRANTS, ADD_GRANT, UPDATE_GRANTS, REMOVE_GRANT } from './types';
+import { FETCH_GRANTS, ADD_GRANT, UPDATE_GRANT, REMOVE_GRANT } from './types';
 import defaultGrant from '../utils/defaultGrant';
 
 export const fetchGrants = () => dispatch => {
   // TODO: look at cookies for existing grants stored
   dispatch({
     type: FETCH_GRANTS,
-    payload: [defaultGrant()]
+    payload: [{
+      sharesGranted: '10000',
+      totalShares: '8000000',
+      strikePrice: '0.001',
+      strikeDate: new Date(2017, 0)
+    },{
+    sharesGranted: '5000',
+    totalShares: '8000000',
+    strikePrice: '0.002',
+    strikeDate: new Date(2018, 0)
+  }]
   })
 }
 
@@ -16,9 +26,9 @@ export const addGrant = () => dispatch => {
   });
 };
 
-export const updateGrants = grantData => dispatch => {
+export const updateGrant = grantData => dispatch => {
   dispatch({
-    type: UPDATE_GRANTS,
+    type: UPDATE_GRANT,
     payload: grantData
   });
 };
