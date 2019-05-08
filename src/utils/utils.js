@@ -11,3 +11,35 @@ export const isNonNegativeNumber = (x) => {
 export const printNumberWithCommas = (x) => {
   return Math.floor(x).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (x - Math.floor(x)).toFixed(2).substring(1);
 }
+
+const isGrantValid = (grant) => {
+  if((typeof grant === 'object') &&
+    grant.sharesGranted &&
+    isPositiveInteger(grant.sharesGranted) &&
+    grant.totalShares &&
+    isPositiveInteger(grant.totalShares) &&
+    grant.strikePrice &&
+    isNonNegativeNumber(grant.strikePrice) &&
+    grant.strikeDate &&
+    (typeof grant.strikeDate.getMonth === 'function')) {
+
+    return true;
+  }
+  return false;
+}
+
+// determine if array of grants is valid (complete)
+export const isGrantsValid = (grants) => {
+  if(grants.length === 0) {
+    return false;
+  }
+
+  console.log(typeof grants);
+  console.log(grants);
+  let result = true;
+  grants.map(grant => {
+    result = result && isGrantValid(grant);
+  });
+
+  return result;
+}

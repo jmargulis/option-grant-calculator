@@ -1,4 +1,5 @@
-import { isPositiveInteger, isNonNegativeNumber, printNumberWithCommas } from './utils';
+import { isPositiveInteger, isNonNegativeNumber, printNumberWithCommas, isGrantsValid } from './utils';
+import defaultGrant from './defaultGrant';
 
 describe('utils', () => {
 
@@ -21,6 +22,71 @@ describe('utils', () => {
     expect(printNumberWithCommas(1000)).toBe('1,000.00');
     expect(printNumberWithCommas(0.01)).toBe('0.01');
     expect(printNumberWithCommas(1000.01)).toBe('1,000.01');
+  });
+
+  it('tests single grant is invalid', () => {
+    expect(isGrantsValid([defaultGrant()])).toBe(false);
+    expect(isGrantsValid([{
+      sharesGranted: '10000',
+      totalShares: '8000000',
+      strikePrice: '0.001',
+      strikeDate: null
+    }])).toBe(false);
+    expect(isGrantsValid([{
+      sharesGranted: '10000',
+      totalShares: '8000000',
+      strikePrice: '',
+      strikeDate: new Date(2019, 0)
+    }])).toBe(false);
+    expect(isGrantsValid([{
+      sharesGranted: '10000',
+      totalShares: '',
+      strikePrice: '0.001',
+      strikeDate: new Date(2019, 0)
+    }])).toBe(false);
+    expect(isGrantsValid([{
+      sharesGranted: '',
+      totalShares: '8000000',
+      strikePrice: '0.001',
+      strikeDate: new Date(2019, 0)
+    }])).toBe(false);
+  });
+
+  it('tests multiple grants is invalid', () => {
+    expect(isGrantsValid([{
+      sharesGranted: '10000',
+      totalShares: '8000000',
+      strikePrice: '0.001',
+      strikeDate: new Date(2019, 0)
+    },{
+      sharesGranted: '',
+      totalShares: '8000000',
+      strikePrice: '0.001',
+      strikeDate: new Date(2019, 0)
+    }])).toBe(false);
+  });
+
+  it('tests single grant is valid', () => {
+    expect(isGrantsValid([{
+      sharesGranted: '10000',
+      totalShares: '8000000',
+      strikePrice: '0.001',
+      strikeDate: new Date(2019, 0)
+    }])).toBe(true);
+  });
+
+  it('tests multiple grants is valid', () => {
+    expect(isGrantsValid([{
+      sharesGranted: '10000',
+      totalShares: '8000000',
+      strikePrice: '0.001',
+      strikeDate: new Date(2019, 0)
+    },{
+      sharesGranted: '1000',
+      totalShares: '8000000',
+      strikePrice: '0.002',
+      strikeDate: new Date(2020, 0)
+    }])).toBe(true);
   });
 
 });
