@@ -5,17 +5,7 @@ export const fetchGrants = () => dispatch => {
   // TODO: look at cookies for existing grants stored
   dispatch({
     type: FETCH_GRANTS,
-    payload: [{
-      sharesGranted: '10000',
-      totalShares: '8000000',
-      strikePrice: '0.001',
-      strikeDate: new Date(2017, 0)
-    },{
-    sharesGranted: '5000',
-    totalShares: '8000000',
-    strikePrice: '0.002',
-    strikeDate: new Date(2018, 0)
-  }]
+    payload: [defaultGrant()]
   })
 }
 

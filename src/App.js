@@ -14,7 +14,7 @@ class App extends React.Component {
         </header>
         <Grants/>
         <Actions/>
-        <ExitInfo exit={{exitValue:'10000000', exitDate: new Date()}}/>
+        <ExitInfo exit={{exitValue:'', exitDate: new Date()}}/>
       </div>
     );
   }
