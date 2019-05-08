@@ -50,15 +50,24 @@ class GrantInfo extends React.Component {
     }
   }
 
-  isValid() {
-    return this.state.sharesGranted !== '' &&
-      this.state.totalShares !== '' &&
-      this.state.strikePrice !== '';
-  }
-
   onChangeStrikeDate(value) {
     this.setState({strikeDate: value},
       () => this.updateGrant());
+  }
+
+  renderSummary() {
+    // determine values to display based on grants and exit data
+    return (
+      <p className={(!this.state.sharesGranted || !this.state.totalShares || !this.state.strikePrice) ? 'invisible' : ''}>
+        This grant is <strong className="grant-percent">
+        {(100 * this.state.sharesGranted / this.state.totalShares).toFixed(4)}%
+      </strong> with value of <strong className="grant-value">
+        ${printNumberWithCommas(this.state.sharesGranted * this.state.strikePrice)}
+      </strong> of <span className="total-value">
+              ${printNumberWithCommas(this.state.totalShares * this.state.strikePrice)}
+              </span> total company value.
+      </p>
+    );
   }
 
   render() {
@@ -105,15 +114,7 @@ class GrantInfo extends React.Component {
                 />
               </div>
             </div>
-            <p className={this.isValid.bind(this) ? '' : 'invisible'}>
-              This grant is <strong className="grant-percent">
-              {(100 * this.state.sharesGranted / this.state.totalShares).toFixed(4)}%
-              </strong> with value of <strong className="grant-value">
-              ${printNumberWithCommas(this.state.sharesGranted * this.state.strikePrice)}
-              </strong> of <span className="total-value">
-              ${printNumberWithCommas(this.state.totalShares * this.state.strikePrice)}
-              </span> total company value.
-            </p>
+            {this.renderSummary()}
           </fieldset>
         </div>
       </div>
