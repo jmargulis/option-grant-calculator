@@ -1,14 +1,27 @@
-import {UPDATE_EXIT} from '../actions/types';
+import {FETCH_EXIT, UPDATE_EXIT} from '../actions/types';
 import exitReducer from './exitReducer';
 
 describe('Redux exitReducer', () => {
+
+  it('fetches exit data', () => {
+    const initialExit = {
+      exitDate: new Date(2020, 0),
+      exitValue: '1000000000'
+    };
+    const actionExit = {
+      type: FETCH_EXIT,
+      payload: null
+    };
+
+    let resultExit = initialExit;
+    expect(exitReducer(initialExit, actionExit)).toEqual(resultExit);
+  });
 
   it('updates exit date', () => {
     const initialDate = {
       exitDate: new Date(2020, 0),
       exitValue: '1'
     };
-
     const actionDate = {
       type: UPDATE_EXIT,
       payload: {
@@ -27,7 +40,6 @@ describe('Redux exitReducer', () => {
       exitDate: new Date(2020, 0),
       exitValue: '1'
     };
-
     const actionValue = {
       type: UPDATE_EXIT,
       payload: {
